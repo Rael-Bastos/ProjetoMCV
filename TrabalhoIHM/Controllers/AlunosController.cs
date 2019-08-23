@@ -24,7 +24,7 @@ namespace TrabalhoIHM.Controllers
         public async Task<ActionResult> Index( string busca = null)
         {
             if(busca != null)
-                return View(_alunos.CustomFind(x => x.Nome.Contains(busca)));
+                return View(_alunos.CustomFind(x => x.Nome.ToUpper().Contains(busca.ToUpper())));
             
             return View(await _alunos.GetAll());
         }
