@@ -5,6 +5,12 @@
 }
 
 <h2>Index</h2>
+@using (Html.BeginForm("Index", "Alunos", FormMethod.Get, new { @class = "form-inlinne" }))
+{
+    <input type="text" placeholder="Buscar um Aluno" name="busca" class="form-control"/>
+    <input type="submit" class="btn btn-default" value="Buscar"/>
+
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")

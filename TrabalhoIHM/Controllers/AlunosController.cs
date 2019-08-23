@@ -20,15 +20,16 @@ namespace TrabalhoIHM.Controllers
         {
             _alunos = alunos;
         }
-
-
-        // GET: Alunos
-        public async Task<ActionResult> Index()
+        
+        public async Task<ActionResult> Index( string busca = null)
         {
+            if(busca != null)
+                return View(_alunos.CustomFind(x => x.Nome.Contains(busca)));
+            
             return View(await _alunos.GetAll());
         }
 
-        // GET: Alunos/Details/5
+      
         public async Task<ActionResult> Details(int id)
         {
             var aluno =  await _alunos.GetById(id);
@@ -38,14 +39,12 @@ namespace TrabalhoIHM.Controllers
             }
             return View(aluno);
         }
-
-        // GET: Alunos/Create
+        
         public ActionResult Create()
         {
             return View();
         }
-
-     //Post: Cria um novo registro de Aluno
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,Endereco,Telefone,Email,Nascimento,Ativo")] Aluno aluno)
@@ -58,8 +57,7 @@ namespace TrabalhoIHM.Controllers
 
             return View(aluno);
         }
-
-        // GET: Alunos/Edit/id
+ 
         public async Task<ActionResult> Edit(int id)
         {
             var aluno = await _alunos.GetById(id);
@@ -69,8 +67,7 @@ namespace TrabalhoIHM.Controllers
             }
             return View(aluno);
         }
-
-        // POST: Alunos/Edit/id
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Aluno alunos)
@@ -83,8 +80,7 @@ namespace TrabalhoIHM.Controllers
             }
             return View(alunos);
         }
-
-        // GET: Alunos/Delete/5
+ 
         public async Task<ActionResult> Delete(int id)
         {
 
@@ -96,8 +92,7 @@ namespace TrabalhoIHM.Controllers
             
             return View(aluno);
         }
-
-        // POST: Alunos/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -111,6 +106,5 @@ namespace TrabalhoIHM.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }
