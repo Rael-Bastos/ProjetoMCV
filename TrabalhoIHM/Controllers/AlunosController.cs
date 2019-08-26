@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,7 +8,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TrabalhoIHM.Auto_Mapper;
 using TrabalhoIHM.Dominio.UoW;
+using TrabalhoIHM.Dtos;
 using TrabalhoIHM.Interfaces;
 using TrabalhoIHM.Models;
 
@@ -17,11 +20,13 @@ namespace TrabalhoIHM.Controllers
     {
 
         private readonly IAlunosRepository _alunos;
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public AlunosController(IAlunosRepository alunos, IUnitOfWork unitOfWork)
+        public AlunosController(IAlunosRepository alunos, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _alunos = alunos;
             _unitOfWork = unitOfWork;
+            _mapper = AutoMapper_config.Mapper;
         }
         
         public async Task<ActionResult> Index( string busca = null)
@@ -75,17 +80,18 @@ namespace TrabalhoIHM.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Aluno alunos)
+        public async Task<ActionResult> Edit(AlunosDto alunosdto)
         {
             if (ModelState.IsValid)
             {
-                var alunoedit = await _alunos.GetById(alunos.Id);
-                alunoedit = alunos;
-                _alunos.Save(alunoedit);
+                Aluno alunoedit = await _alunos.GetById(alunosdto.Id);
+                alunoedit.Nome = alunosdto.Nome;
+                   // _mapper.Map(alunoedit, alunosdto);
+                
                 await _unitOfWork.CommitAsync();
                 return RedirectToAction("Index");
             }
-            return View(alunos);
+            return View(alunosdto);
         }
  
         public async Task<ActionResult> Delete(int id)

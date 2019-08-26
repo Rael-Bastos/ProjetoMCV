@@ -2,6 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 using TrabalhoIHM.App_Start;
+using TrabalhoIHM.Auto_Mapper;
 
 namespace TrabalhoIHM
 {
@@ -14,6 +15,7 @@ namespace TrabalhoIHM
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             SimpleInjectorConfig.RegisterComponents();
+            AutoMapper_config.RegisterMappings();
         }
     }
 }
