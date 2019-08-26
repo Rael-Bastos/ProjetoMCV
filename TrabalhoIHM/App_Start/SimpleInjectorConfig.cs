@@ -3,6 +3,8 @@ using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using System.Reflection;
 using System.Web.Mvc;
+using TrabalhoIHM.Data;
+using TrabalhoIHM.Dominio.UoW;
 using TrabalhoIHM.Interfaces;
 using TrabalhoIHM.Models;
 using TrabalhoIHM.Repositorio;
@@ -31,6 +33,7 @@ namespace TrabalhoIHM.App_Start
         {
             container.Register<EscolaContext>(Lifestyle.Scoped);
             container.Register<IAlunosRepository, AlunosRepository>();
+            container.Register<IUnitOfWork, UnitOfWork>();
         }
     }
 }

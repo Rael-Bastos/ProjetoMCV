@@ -142,13 +142,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IAlunos.cs" />
-    <Compile Include="Interfaces\Repositorio\IAlunosRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Models\Aluno.cs" />
-    <Compile Include="Models\EscolaContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositorio\AlunosRepository.cs" />
-    <Compile Include="Repositorio\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -209,6 +203,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrabalhoIHM.Data\TrabalhoIHM.Data.csproj">
+      <Project>{98D2D40A-2A55-4071-880E-9A4F57B04F15}</Project>
+      <Name>TrabalhoIHM.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrabalhoIHM.Dominio\TrabalhoIHM.Dominio.csproj">
+      <Project>{2FB5C18B-258C-4044-8B05-06E59DE19A66}</Project>
+      <Name>TrabalhoIHM.Dominio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

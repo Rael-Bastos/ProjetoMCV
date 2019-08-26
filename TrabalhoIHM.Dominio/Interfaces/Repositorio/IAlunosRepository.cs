@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using TrabalhoIHM.Dominio.Interfaces.Repositorio;
 using TrabalhoIHM.Models;
 
 namespace TrabalhoIHM.Interfaces
 {
-    public interface IAlunos
-    {
-        
+    public interface IAlunosRepository : IRepository<Aluno>
+    { 
     }
 }

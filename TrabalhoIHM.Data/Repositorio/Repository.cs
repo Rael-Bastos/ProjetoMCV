@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
+using TrabalhoIHM.Dominio.Interfaces.Repositorio;
 using TrabalhoIHM.Interfaces;
 using TrabalhoIHM.Models;
 

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrabalhoIHM.Interfaces
+namespace TrabalhoIHM.Dominio.Interfaces.Repositorio
 {
     public interface IRepository<TEntity>
     {

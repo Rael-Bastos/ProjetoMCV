@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-using TrabalhoIHM.Models;
 
-namespace TrabalhoIHM.Interfaces
+namespace TrabalhoIHM.Dominio.UoW
 {
-    public interface IAlunos
+    public interface IUnitOfWork
     {
-        
+        Task<bool> CommitAsync();
     }
 }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TrabalhoIHM.Dominio.UoW;
 using TrabalhoIHM.Interfaces;
 using TrabalhoIHM.Models;
 
@@ -16,9 +17,11 @@ namespace TrabalhoIHM.Controllers
     {
 
         private readonly IAlunosRepository _alunos;
-        public AlunosController(IAlunosRepository alunos)
+        private readonly IUnitOfWork _unitOfWork;
+        public AlunosController(IAlunosRepository alunos, IUnitOfWork unitOfWork)
         {
             _alunos = alunos;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ActionResult> Index( string busca = null)
@@ -47,11 +50,13 @@ namespace TrabalhoIHM.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Endereco,Telefone,Email,Nascimento,Ativo")] Aluno aluno)
+        public ActionResult Create(Aluno aluno)
         {
             if (ModelState.IsValid)
             {
-                 _alunos.Save(aluno);
+                var alunoAdd = aluno;
+                 _alunos.Save(alunoAdd);
+                _unitOfWork.CommitAsync();
                 return RedirectToAction("Index");
             }
 
@@ -74,8 +79,10 @@ namespace TrabalhoIHM.Controllers
         {
             if (ModelState.IsValid)
             {
-                var alunoss = await _alunos.GetById(alunos.Id);
-                _alunos.Save(alunos);
+                var alunoedit = await _alunos.GetById(alunos.Id);
+                alunoedit = alunos;
+                _alunos.Save(alunoedit);
+                await _unitOfWork.CommitAsync();
                 return RedirectToAction("Index");
             }
             return View(alunos);
@@ -103,6 +110,7 @@ namespace TrabalhoIHM.Controllers
                 return HttpNotFound();
             }
             _alunos.Delete(aluno);
+            await _unitOfWork.CommitAsync();
 
             return RedirectToAction("Index");
         }
