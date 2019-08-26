@@ -85,8 +85,7 @@ namespace TrabalhoIHM.Controllers
             if (ModelState.IsValid)
             {
                 Aluno alunoedit = await _alunos.GetById(alunosdto.Id);
-                alunoedit.Nome = alunosdto.Nome;
-                   // _mapper.Map(alunoedit, alunosdto);
+                _mapper.Map(alunosdto, alunoedit);
                 
                 await _unitOfWork.CommitAsync();
                 return RedirectToAction("Index");
