@@ -55,17 +55,18 @@ namespace TrabalhoIHM.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Aluno aluno)
+        public async Task<ActionResult> Create(AlunosDto alunoDto)
         {
             if (ModelState.IsValid)
             {
-                var alunoAdd = aluno;
-                 _alunos.Save(alunoAdd);
-                _unitOfWork.CommitAsync();
+                var aluno = new Aluno();
+                _mapper.Map(alunoDto, aluno);
+                 _alunos.Save(aluno);
+                await _unitOfWork.CommitAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(aluno);
+            return View();
         }
  
         public async Task<ActionResult> Edit(int id)
@@ -86,7 +87,6 @@ namespace TrabalhoIHM.Controllers
             {
                 Aluno alunoedit = await _alunos.GetById(alunosdto.Id);
                 _mapper.Map(alunosdto, alunoedit);
-                
                 await _unitOfWork.CommitAsync();
                 return RedirectToAction("Index");
             }
@@ -119,5 +119,6 @@ namespace TrabalhoIHM.Controllers
 
             return RedirectToAction("Index");
         }
+        
     }
 }
